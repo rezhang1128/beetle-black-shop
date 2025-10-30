@@ -1,37 +1,20 @@
-import { useState } from 'react'
-import CartDrawer from './CartDrawer'
+import { Fab, Tooltip } from "@mui/material"
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 
+interface Props {
+    onClick: () => void
+}
 
-export default function CartButton() {
-    const [open, setOpen] = useState(false)
-
-
+export default function CartButton({ onClick }: Props) {
     return (
-        <>
-            {/* Floating Button */}
-            <button
-                onClick={() => setOpen(true)}
-                style={{
-                    position: 'fixed',
-                    bottom: '24px',
-                    right: '24px',
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
-                    backgroundColor: '#1e88e5',
-                    color: '#fff',
-                    border: 'none',
-                    fontSize: '20px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
-                    cursor: 'pointer',
-                    zIndex: 50,
-                }}
-            > Cart
-            </button>
-
-
-            {/* Cart Drawer */}
-            <CartDrawer open={open} onClose={() => setOpen(false)} />
-        </>
+        <Tooltip title="View cart" placement="left">
+            <Fab
+                color="primary"
+                onClick={onClick}
+                sx={{ position: "fixed", bottom: 32, right: 32, zIndex: (theme) => theme.zIndex.appBar + 1 }}
+            >
+                <ShoppingCartIcon />
+            </Fab>
+        </Tooltip>
     )
 }

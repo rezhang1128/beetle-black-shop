@@ -1,48 +1,128 @@
-import { useEffect, useMemo, useState } from 'react'
-import { api } from '../api'
-import type { Shop, Product } from '../types'
-import Carousel from '../components/Carousel'
-import currency from 'currency.js'
-
+import { useEffect, useMemo, useState } from "react"
+import {
+    Alert,
+    Box,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    Container,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    Snackbar,
+    Stack,
+    Typography,
+} from "@mui/material"
+import Grid from "@mui/material/Grid2"
+import type { SelectChangeEvent } from "@mui/material/Select"
+import ConvertedPrice from '../components/ConvertedPrice'
+import Carousel from "../components/Carousel"
+import { api } from "../api"
+import type { Product, Shop } from "../types"
 
 export default function Shops() {
     const [shops, setShops] = useState<Shop[]>([])
     const [products, setProducts] = useState<Product[]>([])
-    const [shopId, setShopId] = useState<number | null>(null)
+    const [shopId, setShopId] = useState<number | "">("")
+    const [snackbar, setSnackbar] = useState<{ open: boolean; message: string }>({ open: false, message: "" })
 
+    useEffect(() => {
+        api.get<Shop[]>("/shops.php?action=list").then((response) => setShops(response.data))
+    }, [])
+    useEffect(() => {
+        if (!shopId) return
+        api.get<Product[]>(`/products.php?action=byShop&shop_id=${shopId}`).then((response) => setProducts(response.data))
+    }, [shopId])
 
-    useEffect(() => { api.get<Shop[]>('/shops.php?action=list').then(r => setShops(r.data)) }, [])
-    useEffect(() => { if (shopId) api.get<Product[]>(`/products.php?action=byShop&shop_id=${shopId}`).then(r => setProducts(r.data)) }, [shopId])
-
+    const apiRoot = useMemo(() => (import.meta.env.VITE_API as string).replace("/api", ""), [])
 
     async function addToCart(product_id: number) {
-        await api.post('/cart.php', { product_id, qty: 1 })
-        alert('Added to cart (server-saved)')
+        try {
+            await api.post("/cart.php", { product_id, qty: 1 })
+            setSnackbar({ open: true, message: "Added to cart" })
+        } catch (error) {
+            setSnackbar({ open: true, message: "Failed to add to cart" })
+            console.error(error)
+        }
     }
 
-
-    const apiRoot = useMemo(() => (import.meta.env.VITE_API as string).replace('/api', ''), [])
-
-
+    const handleShopChange = (event: SelectChangeEvent) => {
+        const value = event.target.value
+        setShopId(value === "" ? "" : Number(value))
+    }
     return (
-        <div style={{ padding: 20 }}>
-            <h2>Shops</h2>
-            <select onChange={e => setShopId(Number(e.target.value))} defaultValue="">
-                <option value="" disabled>Select a shop</option>
-                {shops.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-            </select>
+        <Container maxWidth="lg" sx={{ py: 4 }}>
+            <Stack spacing={3}>
+                <Typography variant="h4" component="h1">
+                    Shops
+                </Typography>
+                <FormControl fullWidth>
+                    <InputLabel id="shop-select-label">Select a shop</InputLabel>
+                    <Select
+                        labelId="shop-select-label"
+                        value={shopId === "" ? "" : String(shopId)}
+                        label="Select a shop"
+                        onChange={handleShopChange}
+                    >
+                        <MenuItem value="" disabled>
+                            Choose a shop
+                        </MenuItem>
+                        {shops.map((shop) => (
+                            <MenuItem key={shop.id} value={String(shop.id)}>
+                                {shop.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                {shopId === "" && (
+                    <Alert severity="info">Pick a shop to view its catalogue.</Alert>
+                )}
 
+                {shopId !== "" && products.length === 0 && (
+                    <Alert severity="warning">No products available for this shop yet.</Alert>
+                )}
+                <Grid container spacing={3}>
+                    {products.map((product) => (
+                        <Grid key={product.id} xs={12} sm={6} md={4}>
+                            <Card elevation={1} sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                                <Box sx={{ p: 2 }}>
+                                    <Carousel
+                                        images={[
+                                            product.photo
+                                                ? `${apiRoot}/uploads/${product.photo}`
+                                                : "https://via.placeholder.com/400x240?text=No+Image",
+                                        ]}
+                                    />
+                                </Box>
+                                <CardContent sx={{ flexGrow: 1 }}>
+                                    <Typography variant="h6" gutterBottom>
+                                        {product.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        
+                                    </Typography>
+                                </CardContent>
+                                <ConvertedPrice amountCents={product.price_cents} />
+                                <CardActions sx={{ px: 2, pb: 2 }}>
+                                    <Button variant="contained" fullWidth onClick={() => addToCart(product.id)}>
+                                        Add to cart
+                                    </Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Stack>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 16, marginTop: 16 }}>
-                {products.map(p => (
-                    <div key={p.id} style={{ border: '1px solid #eee', padding: 12, borderRadius: 8 }}>
-                        <Carousel images={[p.photo ? `${apiRoot}/uploads/${p.photo}` : 'https://via.placeholder.com/400x240?text=No+Image']} />
-                        <h4 style={{ margin: '8px 0' }}>{p.name}</h4>
-                        <div>{currency(p.price_cents, { fromCents: true }).format()}</div>
-                        <button onClick={() => addToCart(p.id)} style={{ marginTop: 8 }}>Add to cart</button>
-                    </div>
-                ))}
-            </div>
-        </div>
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={3000}
+                onClose={() => setSnackbar({ open: false, message: "" })}
+                message={snackbar.message}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            />
+        </Container>
     )
 }

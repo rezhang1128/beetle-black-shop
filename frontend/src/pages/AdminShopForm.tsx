@@ -1,53 +1,69 @@
-import { useRef, useState } from "react";
-import { api } from "../api";
-import AddressInput from "../components/AddressInput";
-import { useDropzone } from "react-dropzone";
-export default function AdminShopForm({ onSaved }: { onSaved: () => void }) {
-    const [id, setId] = useState<number | "">("");
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
+import { useRef, useState, useEffect } from "react"
+import { useDropzone } from "react-dropzone"
+import {
+    Alert,
+    Box,
+    Button,
+    Snackbar,
+    Stack,
+    TextField,
+    Typography,
+} from "@mui/material"
+import { api } from "../api"
+import AddressInput from "../components/AddressInput"
 
+export default function AdminShopForm({ onSaved, initialData }: { onSaved: () => void; initialData?: { id?: number; name?: string; address?: string; photo?: string }; }) {
+    const apiRoot = (import.meta.env.VITE_API as string).replace("/api", "");
+    const [id, setId] = useState<number | "">(initialData?.id ?? "");
+    const [name, setName] = useState(initialData?.name ?? "");
+    const [address, setAddress] = useState(initialData?.address || "");
     const [photoFile, setPhotoFile] = useState<File | null>(null);
-    const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-    const [busy, setBusy] = useState(false);
-
-    const fileRef = useRef<HTMLInputElement>(null);
+    const [photoPreview, setPhotoPreview] = useState<string | null>(
+        initialData?.photo ? `${import.meta.env.VITE_API_ROOT}/uploads/${initialData.photo}` : null
+    );
+    const [busy, setBusy] = useState(false)
+    const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: "success" | "error" } | null>(
+        null,
+    )
+    const fileRef = useRef<HTMLInputElement>(null)
+    useEffect(() => {
+        setId(initialData?.id ?? "");
+        setName(initialData?.name ?? "");
+        setAddress(initialData?.address ?? "");
+        setPhotoFile(null);
+        setPhotoPreview(initialData?.photo ? `${apiRoot}/uploads/${initialData.photo}` : null);
+        if (fileRef.current) fileRef.current.value = "";
+    }, [initialData, apiRoot]);
     const onDrop = (acceptedFiles: File[]) => {
-        const f = acceptedFiles[0];
-        setPhotoFile(f);
-        setPhotoPreview(URL.createObjectURL(f));
-        console.log("[AdminShopForm] picked via dropzone:", f?.name);
-    };
-
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        accept: { "image/*": [] },
-        multiple: false,
-        onDrop,
-    });
-    function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const f = e.target.files?.[0] || null;
-        console.log("[AdminShopForm] onFileChange got:", f?.name);
-        setPhotoFile(f);
-        setPhotoPreview(f ? URL.createObjectURL(f) : null);
+        const file = acceptedFiles[0]
+        if (!file) return
+        setPhotoFile(file)
+        setPhotoPreview(URL.createObjectURL(file))
     }
 
-    function pickFile() {
-        const el = fileRef.current;
-        if (!el) return;
-        // Use modern showPicker() if supported, fallback to click()
-        // @ts-ignore ¡ª showPicker not yet in TS DOM lib
-        if (typeof el.showPicker === "function") {
-            console.log("[AdminShopForm] Using showPicker()");
-            // @ts-ignore
-            el.showPicker();
-        } else {
-            console.log("[AdminShopForm] Using click()");
-            el.click();
-        }
-    }
+const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: { "image/*": [] },
+    multiple: false,
+    onDrop,
+})
 
-    async function submit(e: React.FormEvent) {
-        e.preventDefault();
+function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0] || null
+    setPhotoFile(file)
+    setPhotoPreview(file ? URL.createObjectURL(file) : null)
+}
+function pickFile() {
+    const el = fileRef.current
+    if (!el) return
+    const withPicker = el as HTMLInputElement & { showPicker?: () => void }
+    if (typeof withPicker.showPicker === "function") {
+        withPicker.showPicker()
+    } else {
+        el.click()
+    }
+}
+    async function submit(event: React.FormEvent) {
+        event.preventDefault();
         setBusy(true);
         try {
             const fd = new FormData();
@@ -57,79 +73,94 @@ export default function AdminShopForm({ onSaved }: { onSaved: () => void }) {
             if (photoFile) fd.append("photo", photoFile);
 
             const url = id === "" ? "/shops.php?action=create" : "/shops.php?action=update";
-            console.log("[AdminShopForm] Submitting, hasPhoto?", !!photoFile);
-            const { data } = await api.post(url, fd);
-            console.log("[AdminShopForm] Server:", data);
+            await api.post(url, fd);
 
-            alert("Shop saved successfully!");
-            setId("");
-            setName("");
-            setAddress("");
-            setPhotoFile(null);
-            setPhotoPreview(null);
-            if (fileRef.current) fileRef.current.value = "";
+            setSnackbar({ open: true, message: "Shop saved successfully", severity: "success" });
+
+            // If creating, clear the form. If updating, let AdminDashboard close edit mode via onSaved()
+            if (id === "") {
+                setName("");
+                setAddress("");
+                setPhotoFile(null);
+                setPhotoPreview(null);
+                if (fileRef.current) fileRef.current.value = "";
+            }
+
             onSaved();
-        } catch (err) {
-            console.error("[AdminShopForm] Save failed:", err);
-            alert("Upload failed ¡ª see console for details.");
+        } catch (error) {
+            console.error("[AdminShopForm] Save failed:", error);
+            setSnackbar({ open: true, message: "Upload failed", severity: "error" });
         } finally {
             setBusy(false);
         }
     }
 
-    return (
-        <form onSubmit={submit} style={{ display: "grid", gap: 8 }}>
-            <label>
-                Shop ID (leave empty to create)
-                <input
-                    value={id}
-                    onChange={(e) => setId(e.target.value ? Number(e.target.value) : "")}
-                    placeholder=""
-                />
-            </label>
-
-            <label>
-                Name
-                <input value={name} onChange={(e) => setName(e.target.value)} required />
-            </label>
-
-            <label>
+return (
+    <Box component="form" onSubmit={submit} sx={{ display: "grid", gap: 2 }}>
+        <TextField
+            label="Name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            required
+        />
+        <Stack spacing={1}>
+            <Typography variant="body2" color="text.secondary">
                 Address
-                <AddressInput onSelect={setAddress} />
-            </label>
+            </Typography>
+            <AddressInput onSelect={setAddress} value={address} />
+            {address && (
+                <Typography variant="caption" color="text.secondary">
+                    Selected: {address}
+                </Typography>
+            )}
+        </Stack>
 
-            <div
+        <Stack spacing={1}>
+            <Typography variant="body2" color="text.secondary">
+                Photo
+            </Typography>
+            <Box
                 {...getRootProps()}
-                style={{
-                    border: "2px dashed #ccc",
-                    borderRadius: 8,
-                    padding: 20,
+                sx={{
+                    border: "2px dashed",
+                    borderColor: isDragActive ? "primary.main" : "divider",
+                    borderRadius: 2,
+                    p: 3,
                     textAlign: "center",
                     cursor: "pointer",
-                    background: isDragActive ? "#eef" : "#fafafa",
+                    bgcolor: isDragActive ? "action.hover" : "background.paper",
                 }}
             >
                 <input {...getInputProps()} />
-                <p>{isDragActive ? "Drop the image here..." : "Click or drag image here"}</p>
+                <Typography variant="body2" color="text.secondary">
+                    {isDragActive ? "Drop the image here" : "Drag and drop an image, or click to browse"}
+                </Typography>
+                <Button variant="outlined" sx={{ mt: 2 }} onClick={pickFile} type="button">
+                    Choose file
+                </Button>
+            </Box>
+            <input type="file" ref={fileRef} accept="image/*" hidden onChange={onFileChange} />
+            {photoPreview && (
+                <Box
+                    component="img"
+                    src={photoPreview}
+                    alt="Preview"
+                    sx={{ width: "100%", maxWidth: 200, borderRadius: 1, border: 1, borderColor: "divider" }}
+                />
+            )}
+        </Stack>
+        <Button type="submit" variant="contained" disabled={busy}>
+            {id === "" ? "Create" : "Update"} Shop
+        </Button>
 
-                {photoPreview && (
-                    <div style={{ marginTop: 8 }}>
-                        <img
-                            src={photoPreview}
-                            alt="preview"
-                            style={{
-                                width: 160,
-                                height: 100,
-                                objectFit: "cover",
-                                border: "1px solid #ddd",
-                            }}
-                        />
-                    </div>
-                )}</div>
-
-            <button disabled={busy} type="submit">
-                {id === "" ? "Create" : "Update"} Shop
-            </button>
-        </form>
-    );
+        <Snackbar
+            open={Boolean(snackbar?.open)}
+            autoHideDuration={3000}
+            onClose={() => setSnackbar(null)}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+            {snackbar && <Alert severity={snackbar.severity}>{snackbar.message}</Alert>}
+        </Snackbar>
+    </Box>
+)
 }

@@ -1,13 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\backend",
     "\\backend\\api",
+    "\\backend\\uploads",
     "\\frontend",
     "\\frontend\\src",
     "\\frontend\\src\\components",
     "\\frontend\\src\\pages"
   ],
-  "SelectedNode": "\\frontend\\src\\components\\CartDrawer.tsx",
+  "SelectedNode": "\\package.json",
   "PreviewInSolutionExplorer": false
 }

@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Box, Button, Stack, Typography } from "@mui/material"
+import { Link as RouterLink } from "react-router-dom"
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <Box
+            sx={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                p: 4,
+            }}
+        >
+            <Stack spacing={3}>
+                <Typography variant="h3" component="h1" color="primary">
+                    Welcome to Beetle Black Shop
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                    Select a destination from the navigation above to start browsing shops,
+                    manage your cart, or administer the catalogue.
+                </Typography>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2} justifyContent="center">
+                    <Button
+                        variant="contained"
+                        component={RouterLink}
+                        to="/"
+                        color="primary"
+                    >
+                        Browse Shops
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        component={RouterLink}
+                        to="/checkout"
+                        color="primary"
+                    >
+                        Checkout
+                    </Button>
+                </Stack>
+            </Stack>
+        </Box>
+    )
 }
 
 export default App

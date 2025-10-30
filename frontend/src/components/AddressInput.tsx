@@ -1,35 +1,55 @@
-/* global google */
-import Autocomplete from "react-google-autocomplete";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react"
+import TextField from "@mui/material/TextField"
 
 interface Props {
-    onSelect: (address: string) => void;
+    onSelect: (address: string) => void
+    value?: string
 }
 
-export default function AddressInput({ onSelect }: Props) {
-    const inputRef = useRef<HTMLInputElement | null>(null);
-
-    const handlePlaceSelected = (place: google.maps.places.PlaceResult) => {
-        if (place && place.formatted_address) {
-            onSelect(place.formatted_address);
-            if (inputRef.current) inputRef.current.value = place.formatted_address;
+export default function AddressInput({ onSelect, value: valueProp }: Props) {
+    const inputRef = useRef<HTMLInputElement | null>(null)
+    const [value, setValue] = useState("")
+    useEffect(() => {
+        if (typeof valueProp === "string") {
+            setValue(valueProp)
         }
-    };
+    }, [valueProp])
+
+    useEffect(() => {
+        if (!inputRef.current) return
+        const googleMaps = (window as typeof window & { google?: typeof google }).google
+        if (!googleMaps?.maps?.places) return
+
+        const autocomplete = new googleMaps.maps.places.Autocomplete(inputRef.current, {
+            componentRestrictions: { country: "au" },
+            types: ["address"],
+            fields: ["formatted_address", "place_id", "geometry"],
+        })
+
+        const listener = autocomplete.addListener("place_changed", () => {
+            const place = autocomplete.getPlace()
+            if (place?.formatted_address) {
+                setValue(place.formatted_address)
+                onSelect(place.formatted_address)
+            }
+        })
+
+        return () => {
+            googleMaps.maps.event.removeListener(listener)
+        }
+    }, [onSelect])
 
     return (
-        <Autocomplete
-            apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string}
-            onPlaceSelected={handlePlaceSelected}
-            language="en-AU"
-            options={{
-                componentRestrictions: { country: "au" }, // Focus on Australia
-                types: ["address"],                        // Only addresses
-                fields: ["formatted_address", "place_id", "geometry"],
+        <TextField
+            label="Search Australian address"
+            fullWidth
+            value={value}
+            onChange={(event) => {
+                const next = event.target.value
+                setValue(next)
+                onSelect(next)
             }}
-            ref={inputRef}
-            placeholder="Search Australian address"
-            style={{ width: "100%", padding: "8px" }}
-            onKeyDown={(e) => e.preventDefault()} // Prevent manual typing
+            inputRef={inputRef}
         />
-    );
+    )
 }

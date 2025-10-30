@@ -1,130 +1,188 @@
-import { useEffect, useMemo, useState } from 'react'
-import { createPortal } from 'react-dom'
-import { api } from '../api'
-import currency from 'currency.js'
-import type { CartItem } from '../types'
-
+import { useEffect, useMemo, useState } from "react"
+import {
+    Avatar,
+    Box,
+    Button,
+    CircularProgress,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    Stack,
+    Typography,
+} from "@mui/material"
+import CloseIcon from "@mui/icons-material/Close"
+import DeleteIcon from "@mui/icons-material/DeleteOutline"
+import AddIcon from "@mui/icons-material/Add"
+import RemoveIcon from "@mui/icons-material/Remove"
+import ConvertedPrice from './ConvertedPrice'
+import { api } from "../api"
+import type { CartItem } from "../types"
 
 interface Props {
     open: boolean
     onClose: () => void
 }
-
-
 export default function CartDrawer({ open, onClose }: Props) {
     const [items, setItems] = useState<CartItem[]>([])
     const [loading, setLoading] = useState(false)
-
-
-    const apiRoot = (import.meta.env.VITE_API as string).replace('/api', '')
-
+    const apiRoot = (import.meta.env.VITE_API as string).replace("/api", "")
 
     const loadCart = async () => {
         setLoading(true)
         try {
-            const { data } = await api.get<CartItem[]>('/cart.php')
+            const { data } = await api.get<CartItem[]>("/cart.php")
+            console.log(data)
             setItems(data)
         } finally {
             setLoading(false)
         }
     }
-
-
     useEffect(() => {
-        if (open) loadCart()
+        if (open) {
+            void loadCart()
+        }
     }, [open])
-
-
-    const total = useMemo(() => items.reduce((s, i) => s + (i.price_cents * i.qty), 0), [items])
-
+    const total = useMemo(() => items.reduce((sum, item) => sum + item.price_cents * item.qty, 0), [items])
 
     async function updateQty(product_id: number, qty: number) {
         if (qty <= 0) {
-            // Use PUT with qty=0 to remove per our cart.php implementation
-            await api.put('/cart.php', { product_id, qty: 0 })
+            await api.put("/cart.php", { product_id, qty: 0 })
         } else {
-            // Update quantity directly
-            await api.put('/cart.php', { product_id, qty })
+            await api.put("/cart.php", { product_id, qty })
         }
         await loadCart()
     }
+    return (
+        <Drawer anchor="right" open={open} onClose={onClose} PaperProps={{ sx: { width: { xs: 320, sm: 380 } } }}>
+            <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+                <Box
+                    component="header"
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        px: 2,
+                        py: 1.5,
+                        borderBottom: 1,
+                        borderColor: "divider",
+                    }}
+                >
+                    <Typography variant="h6">My Cart</Typography>
+                    <IconButton aria-label="Close cart" onClick={onClose}>
+                        <CloseIcon />
+                    </IconButton>
+                </Box>
 
+                <Box sx={{ flex: 1, overflowY: "auto", p: 2 }}>
+                    {loading && (
+                        <Stack spacing={2} alignItems="center" justifyContent="center" sx={{ py: 6 }}>
+                            <CircularProgress size={32} />
+                            <Typography variant="body2" color="text.secondary">
+                                Loading cart...
+                            </Typography>
+                        </Stack>
+                    )}
 
-    if (!open) return null
-    return createPortal(
-        <>
-            {/* overlay */}
-            <div
-                onClick={onClose}
-                aria-hidden
-                style={{
-                    position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.35)',
-                    zIndex: 40
-                }}
-            />
+                    {!loading && items.length === 0 && (
+                        <Stack spacing={2} alignItems="center" justifyContent="center" sx={{ py: 6 }}>
+                            <Typography variant="subtitle1" color="text.secondary">
+                                Your cart is empty.
+                            </Typography>
+                        </Stack>
+                    )}
 
+                    {!loading && items.length > 0 && (
+                        <List disablePadding>
+                            {items.map((item) => (
+                                <ListItem key={item.id} alignItems="flex-start" sx={{ py: 2 }} divider>
+                                    <ListItemAvatar>
+                                        <Avatar
+                                            variant="rounded"
+                                            src={
+                                                item.photo
+                                                    ? `${apiRoot}/uploads/${item.photo}`
+                                                    : "https://via.placeholder.com/64"
+                                            }
+                                            alt={item.name}
+                                            sx={{ width: 72, height: 72, mr: 1 }}
+                                        />
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={
+                                            <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+                                                {item.name}
+                                            </Typography>
+                                        }
+                                        secondary={
+                                            <ConvertedPrice amountCents={item.price_cents} quantity={item.qty} />
+                                        }
+                                    />
+                                    <Stack spacing={1} alignItems="center">
+                                        <Stack direction="row" spacing={1} alignItems="center">
+                                            <IconButton
+                                                aria-label="Decrease quantity"
+                                                size="small"
+                                                onClick={() => updateQty(item.product_id, item.qty - 1)}
+                                            >
+                                                <RemoveIcon fontSize="small" />
+                                            </IconButton>
+                                            <Typography>{item.qty}</Typography>
+                                            <IconButton
+                                                aria-label="Increase quantity"
+                                                size="small"
+                                                onClick={() => updateQty(item.product_id, item.qty + 1)}
+                                            >
+                                                <AddIcon fontSize="small" />
+                                            </IconButton>
+                                        </Stack>
+                                        <IconButton
+                                            aria-label="Remove item"
+                                            color="error"
+                                            size="small"
+                                            onClick={() => updateQty(item.product_id, 0)}
+                                        >
+                                            <DeleteIcon fontSize="small" />
+                                        </IconButton>
+                                        <ConvertedPrice amountCents={item.price_cents} quantity={item.qty} />
+                                    </Stack>
+                                </ListItem>
+                            ))}
+                        </List>
+                    )}
+                </Box>
 
-            {/* drawer */}
-            <aside
-                role="dialog" aria-label="Shopping cart" aria-modal
-                style={{
-                    position: 'fixed', top: 0, right: 0, bottom: 0,
-                    width: '360px', maxWidth: '90vw', background: '#fff',
-                    boxShadow: '-4px 0 16px rgba(0,0,0,0.2)', zIndex: 41,
-                    display: 'flex', flexDirection: 'column'
-                }}
-            >
-                <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', borderBottom: '1px solid #eee' }}>
-                    <strong>My Cart</strong>
-                    <button onClick={onClose} aria-label="Close cart">?</button>
-                </header>
-
-
-                <div style={{ flex: 1, overflow: 'auto', padding: 12 }}>
-                    {loading && <div>Loading¡­</div>}
-                    {!loading && items.length === 0 && <div>Your cart is empty.</div>}
-
-
-                    {!loading && items.map(item => (
-                        <div key={item.id} style={{ display: 'flex', gap: 12, alignItems: 'center', borderBottom: '1px solid #eee', padding: '8px 0' }}>
-                            <img
-                                src={item.photo ? `${apiRoot}/uploads/${item.photo}` : 'https://via.placeholder.com/64'}
-                                alt={item.name}
-                                width={64}
-                                height={64}
-                                style={{ borderRadius: 6, objectFit: 'cover' }}
-                            />
-                            <div style={{ flex: 1 }}>
-                                <div style={{ fontWeight: 600 }}>{item.name}</div>
-                                <div style={{ color: '#666' }}>{currency(item.price_cents, { fromCents: true }).format()}</div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
-                                    <button onClick={() => updateQty(item.product_id, item.qty - 1)} aria-label="Decrease">-</button>
-                                    <span>{item.qty}</span>
-                                    <button onClick={() => updateQty(item.product_id, item.qty + 1)} aria-label="Increase">+</button>
-                                    <button onClick={() => updateQty(item.product_id, 0)} style={{ marginLeft: 'auto' }}>Remove</button>
-                                </div>
-                            </div>
-                            <div>{currency(item.price_cents * item.qty, { fromCents: true }).format()}</div>
-                        </div>
-                    ))}
-                </div>
-
-
-                <footer style={{ padding: 12, borderTop: '1px solid #eee' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <strong>Total</strong>
-                        <strong>{currency(total, { fromCents: true }).format()}</strong>
-                    </div>
-                    <button
-                        style={{ marginTop: 12, width: '100%', padding: '10px 12px', fontSize: 16 }}
-                        onClick={() => { window.location.href = '/checkout' }}
+                <Box
+                    component="footer"
+                    sx={{
+                        px: 2,
+                        py: 2,
+                        borderTop: 1,
+                        borderColor: "divider",
+                        backgroundColor: "background.paper",
+                    }}
+                >
+                    <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+                        <Typography variant="subtitle1" fontWeight={600}>
+                            Total
+                        </Typography>
+                        <ConvertedPrice amountCents={total} as="strong" />
+                    </Stack>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth
                         disabled={items.length === 0}
+                        onClick={() => {
+                            window.location.href = "/checkout"
+                        }}
                     >
                         Go to Checkout
-                    </button>
-                </footer>
-            </aside>
-        </>,
-        document.body
+                    </Button>
+                </Box>
+            </Box>
+        </Drawer>
     )
 }

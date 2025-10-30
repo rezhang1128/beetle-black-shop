@@ -3,64 +3,84 @@
   "WorkspaceRootPath": "J:\\GitHub\\beetle-black-shop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CartDrawer.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\CartDrawer.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CurrencySelector.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\CurrencySelector.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\AddressInput.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\AddressInput.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\AdminShopForm.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\AdminShopForm.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\AdminDashboard.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\AdminDashboard.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\backend\\api\\config.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\api\\config.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\main.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\main.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Checkout.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Checkout.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\backend\\api\\stripe.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\api\\stripe.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\backend\\api\\cart.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\api\\cart.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\api.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\api.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Shops.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Shops.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\Carousel.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\Carousel.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\ConvertedPrice.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\ConvertedPrice.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Login.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Login.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\main.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\main.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\App.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\App.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\types.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\types.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CartDrawer.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\CartDrawer.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\AdminDashboard.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\AdminDashboard.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Checkout.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Checkout.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CurrencyContext.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\CurrencyContext.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CartButton.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\CartButton.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\Carousel.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\Carousel.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\backend\\api\\debug.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\api\\debug.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\backend\\api\\cart.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\api\\cart.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\vite.config.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\vite.config.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\frontend\\src\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\backend\\api\\auth.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\api\\auth.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\backend\\api\\config.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\api\\config.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\backend\\api\\stripe.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\api\\stripe.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|J:\\GitHub\\beetle-black-shop\\backend\\api\\products.php||{3D2461EC-8045-4AA9-ABFB-812292AE795D}",
@@ -74,76 +94,219 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AddressInput.tsx",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\AddressInput.tsx",
-              "RelativeDocumentMoniker": "frontend\\src\\components\\AddressInput.tsx",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\AddressInput.tsx",
-              "RelativeToolTip": "frontend\\src\\components\\AddressInput.tsx",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBkAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T14:51:41.728Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AdminDashboard.tsx",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\AdminDashboard.tsx",
-              "RelativeDocumentMoniker": "frontend\\src\\pages\\AdminDashboard.tsx",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\AdminDashboard.tsx",
-              "RelativeToolTip": "frontend\\src\\pages\\AdminDashboard.tsx",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAQwD4AAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T13:05:57.145Z",
+              "Title": "package.json",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\package.json",
+              "RelativeDocumentMoniker": "package.json",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\package.json",
+              "RelativeToolTip": "package.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-30T11:21:19.588Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AdminShopForm.tsx",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\AdminShopForm.tsx",
-              "RelativeDocumentMoniker": "frontend\\src\\pages\\AdminShopForm.tsx",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\AdminShopForm.tsx",
-              "RelativeToolTip": "frontend\\src\\pages\\AdminShopForm.tsx",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAmwGEAAAA2AAAAAAAAAA==",
+              "Title": "package.json",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\package.json",
+              "RelativeDocumentMoniker": "frontend\\package.json",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\package.json",
+              "RelativeToolTip": "frontend\\package.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-30T11:20:42.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Shops.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Shops.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\Shops.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Shops.tsx",
+              "RelativeToolTip": "frontend\\src\\pages\\Shops.tsx",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAQwGcAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T13:05:40.892Z",
+              "WhenOpened": "2025-10-30T11:16:40.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "App.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\App.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\App.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\App.tsx",
+              "RelativeToolTip": "frontend\\src\\App.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-30T11:10:56.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdminDashboard.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\AdminDashboard.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\AdminDashboard.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\AdminDashboard.tsx",
+              "RelativeToolTip": "frontend\\src\\pages\\AdminDashboard.tsx",
+              "ViewState": "AgIAAA0BAAAAAAAAAAAQwBYBAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-30T10:55:04.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "main.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\main.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\main.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\main.tsx",
+              "RelativeToolTip": "frontend\\src\\main.tsx",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAQwEsAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-30T10:48:04.827Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CurrencySelector.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CurrencySelector.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\components\\CurrencySelector.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CurrencySelector.tsx",
+              "RelativeToolTip": "frontend\\src\\components\\CurrencySelector.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-30T10:39:12.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConvertedPrice.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\ConvertedPrice.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\components\\ConvertedPrice.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\ConvertedPrice.tsx",
+              "RelativeToolTip": "frontend\\src\\components\\ConvertedPrice.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-30T10:38:26.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Checkout.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Checkout.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\Checkout.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Checkout.tsx",
+              "RelativeToolTip": "frontend\\src\\pages\\Checkout.tsx",
+              "ViewState": "AgIAACkAAAAAAAAAAAAQwDMAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-29T09:30:27.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CurrencyContext.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CurrencyContext.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\components\\CurrencyContext.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CurrencyContext.tsx",
+              "RelativeToolTip": "frontend\\src\\components\\CurrencyContext.tsx",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-30T10:41:35.226Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "CartDrawer.tsx",
               "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CartDrawer.tsx",
               "RelativeDocumentMoniker": "frontend\\src\\components\\CartDrawer.tsx",
               "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CartDrawer.tsx",
               "RelativeToolTip": "frontend\\src\\components\\CartDrawer.tsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAmwJoAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "WhenOpened": "2025-10-29T10:54:19.152Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "config.php",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\backend\\api\\config.php",
-              "RelativeDocumentMoniker": "backend\\api\\config.php",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\backend\\api\\config.php",
-              "RelativeToolTip": "backend\\api\\config.php",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAdAAAAAAAAAA==",
-              "Icon": "89320d42-7831-4f47-839a-c227d3a60919.000001|",
-              "WhenOpened": "2025-10-29T10:52:34.212Z",
+              "DocumentIndex": 11,
+              "Title": "CartButton.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CartButton.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\components\\CartButton.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\CartButton.tsx",
+              "RelativeToolTip": "frontend\\src\\components\\CartButton.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-30T06:11:02.418Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
+              "Title": "Carousel.tsx",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\Carousel.tsx",
+              "RelativeDocumentMoniker": "frontend\\src\\components\\Carousel.tsx",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\Carousel.tsx",
+              "RelativeToolTip": "frontend\\src\\components\\Carousel.tsx",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAmwCcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-29T09:29:02.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "debug.php",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\backend\\api\\debug.php",
+              "RelativeDocumentMoniker": "backend\\api\\debug.php",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\backend\\api\\debug.php",
+              "RelativeToolTip": "backend\\api\\debug.php",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAADAAAAAAAAAA==",
+              "Icon": "89320d42-7831-4f47-839a-c227d3a60919.000001|",
+              "WhenOpened": "2025-10-30T07:35:49.575Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "vite.config.ts",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\vite.config.ts",
+              "RelativeDocumentMoniker": "frontend\\vite.config.ts",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\vite.config.ts",
+              "RelativeToolTip": "frontend\\vite.config.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-10-30T07:22:28.047Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "index.css",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\index.css",
+              "RelativeDocumentMoniker": "frontend\\src\\index.css",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\index.css",
+              "RelativeToolTip": "frontend\\src\\index.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-10-30T07:11:14.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "cart.php",
               "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\backend\\api\\cart.php",
               "RelativeDocumentMoniker": "backend\\api\\cart.php",
@@ -156,46 +319,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Checkout.tsx",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Checkout.tsx",
-              "RelativeDocumentMoniker": "frontend\\src\\pages\\Checkout.tsx",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Checkout.tsx",
-              "RelativeToolTip": "frontend\\src\\pages\\Checkout.tsx",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAIwBkAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T09:30:27.084Z",
+              "DocumentIndex": 17,
+              "Title": "auth.php",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\backend\\api\\auth.php",
+              "RelativeDocumentMoniker": "backend\\api\\auth.php",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\backend\\api\\auth.php",
+              "RelativeToolTip": "backend\\api\\auth.php",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "89320d42-7831-4f47-839a-c227d3a60919.000001|",
+              "WhenOpened": "2025-10-30T01:58:26.183Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "api.ts",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\api.ts",
-              "RelativeDocumentMoniker": "frontend\\src\\api.ts",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\api.ts",
-              "RelativeToolTip": "frontend\\src\\api.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T09:26:53.858Z",
-              "EditorCaption": ""
+              "DocumentIndex": 18,
+              "Title": "config.php",
+              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\backend\\api\\config.php",
+              "RelativeDocumentMoniker": "backend\\api\\config.php",
+              "ToolTip": "J:\\GitHub\\beetle-black-shop\\backend\\api\\config.php",
+              "RelativeToolTip": "backend\\api\\config.php",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAdAAAAAAAAAA==",
+              "Icon": "89320d42-7831-4f47-839a-c227d3a60919.000001|",
+              "WhenOpened": "2025-10-29T10:52:34.212Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "main.tsx",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\main.tsx",
-              "RelativeDocumentMoniker": "frontend\\src\\main.tsx",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\main.tsx",
-              "RelativeToolTip": "frontend\\src\\main.tsx",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T09:27:28.576Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 19,
               "Title": "stripe.php",
               "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\backend\\api\\stripe.php",
               "RelativeDocumentMoniker": "backend\\api\\stripe.php",
@@ -203,77 +352,11 @@
               "RelativeToolTip": "backend\\api\\stripe.php",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAACGAAAAAAAAAA==",
               "Icon": "89320d42-7831-4f47-839a-c227d3a60919.000001|",
-              "WhenOpened": "2025-10-29T02:37:21.905Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T02:37:21.905Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Shops.tsx",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Shops.tsx",
-              "RelativeDocumentMoniker": "frontend\\src\\pages\\Shops.tsx",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Shops.tsx",
-              "RelativeToolTip": "frontend\\src\\pages\\Shops.tsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T09:30:03.661Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "App.tsx",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\App.tsx",
-              "RelativeDocumentMoniker": "frontend\\src\\App.tsx",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\App.tsx",
-              "RelativeToolTip": "frontend\\src\\App.tsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T09:27:49.964Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Login.tsx",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Login.tsx",
-              "RelativeDocumentMoniker": "frontend\\src\\pages\\Login.tsx",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\pages\\Login.tsx",
-              "RelativeToolTip": "frontend\\src\\pages\\Login.tsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T09:28:20.607Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Carousel.tsx",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\Carousel.tsx",
-              "RelativeDocumentMoniker": "frontend\\src\\components\\Carousel.tsx",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\components\\Carousel.tsx",
-              "RelativeToolTip": "frontend\\src\\components\\Carousel.tsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T09:29:02.183Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "types.ts",
-              "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\types.ts",
-              "RelativeDocumentMoniker": "frontend\\src\\types.ts",
-              "ToolTip": "J:\\GitHub\\beetle-black-shop\\frontend\\src\\types.ts",
-              "RelativeToolTip": "frontend\\src\\types.ts",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAzwCUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-10-29T09:26:04.519Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 20,
               "Title": "products.php",
               "DocumentMoniker": "J:\\GitHub\\beetle-black-shop\\backend\\api\\products.php",
               "RelativeDocumentMoniker": "backend\\api\\products.php",
@@ -281,8 +364,7 @@
               "RelativeToolTip": "backend\\api\\products.php",
               "ViewState": "AgIAACEAAAAAAAAAAAAkwEIAAAAuAAAAAAAAAA==",
               "Icon": "89320d42-7831-4f47-839a-c227d3a60919.000001|",
-              "WhenOpened": "2025-10-29T02:35:31.458Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T02:35:31.458Z"
             }
           ]
         }
