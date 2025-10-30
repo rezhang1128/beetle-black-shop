@@ -77,7 +77,7 @@ function Shell() {
         <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
             <AppBar position="sticky" color="primary" enableColorOnDark>
                 <Toolbar>
-                    <CurrencySelector />
+                    
                     <Typography
                         variant="h6"
                         component={RouterLink}
@@ -85,7 +85,9 @@ function Shell() {
                         sx={{ flexGrow: 1, textDecoration: "none", color: "inherit", fontWeight: 600 }}
                     >
                         Beetle Black Shop
-                    </Typography>
+                        </Typography>
+
+                        <CurrencySelector />
                     {isMobile ? (
                         <>
                             <IconButton color="inherit" edge="end" onClick={handleMenuOpen} aria-label="Open navigation">

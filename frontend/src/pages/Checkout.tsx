@@ -58,7 +58,7 @@ function CheckoutForm({ onResult }: { onResult: (message: string, severity: "suc
                 <PaymentElement onReady={() => setReady(true)} />
             </Paper>
             <Button type="submit" variant="contained" disabled={!stripe || !elements || !ready || submitting}>
-                {submitting ? "Processing¡­" : "Pay"}
+                {submitting ? "Processing..." : "Pay"}
             </Button>
         </Box>
     )
@@ -113,7 +113,7 @@ export default function Checkout() {
                                         >
                                             <ListItemText
                                                 primary={item.name}
-                                                secondary={`Qty ${item.qty} ¡Á ${currency(item.price_cents, { fromCents: true }).format()}`}
+                                                secondary={`Qty ${item.qty} x ${currency(item.price_cents, { fromCents: true }).format()}`}
                                             />
                                         </ListItem>
                                         <Divider component="li" />
