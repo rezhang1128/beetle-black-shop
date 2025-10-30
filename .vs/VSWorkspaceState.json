@@ -4,8 +4,9 @@
     "\\frontend",
     "\\frontend\\src",
     "\\frontend\\src\\components",
+    "\\frontend\\src\\hooks",
     "\\frontend\\src\\pages"
   ],
-  "SelectedNode": "\\frontend\\src\\pages\\Checkout.tsx",
+  "SelectedNode": "\\frontend\\src\\hooks",
   "PreviewInSolutionExplorer": false
 }

@@ -101,7 +101,7 @@ export default function Shops() {
                                         {product.name}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        
+                                        {product.description}
                                     </Typography>
                                 </CardContent>
                                 <ConvertedPrice amountCents={product.price_cents} />

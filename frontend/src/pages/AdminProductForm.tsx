@@ -1,10 +1,12 @@
 // AdminProductForm.tsx
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import {
     Alert, Box, Button, Snackbar, Stack, TextField, Typography
 } from "@mui/material";
 import { api } from "../api";
 import { useDropzone } from "react-dropzone"
+import { useCurrency } from "../components/CurrencyContext";
+import { baseCurrency, useExchangeRate } from "../hooks/useExchangeRate";
 
 export default function AdminProductForm({
     shopId,
@@ -15,25 +17,51 @@ export default function AdminProductForm({
     const [id, setId] = useState<number | "">(initialData?.id || "");
     const [name, setName] = useState(initialData?.name || "");
     const [description, setDescription] = useState(initialData?.description || "");
-    const [priceCents, setPriceCents] = useState<number | "">(initialData?.price_cents || "");
+    const formatPrice = (cents: number) => (cents / 100).toFixed(2);
+    const [priceInput, setPriceInput] = useState<string>(
+        initialData?.price_cents !== undefined ? formatPrice(initialData.price_cents) : ""
+    );
+    const parsedPrice = Number.parseFloat(priceInput);
+    const priceCentsPreview =
+        priceInput.trim() === "" || Number.isNaN(parsedPrice) ? null : Math.round(parsedPrice * 100);
     const [photoPreview, setPhotoPreview] = useState<string | null>(
         initialData?.photo ? `${import.meta.env.VITE_API_ROOT}/uploads/${initialData.photo}` : null
     );
     const [photoFile, setPhotoFile] = useState<File | null>(null);
     const [busy, setBusy] = useState(false);
     const [snackbar, setSnackbar] = useState<{ open: boolean; severity: "success" | "error"; message: string } | null>(null);
-
+    const { currency } = useCurrency();
+    const normalizedCurrency = currency.toUpperCase();
+    const { status: rateStatus, rate } = useExchangeRate(normalizedCurrency);
+    const priceBaseRef = useRef<number | null>(initialData?.price_cents ?? null);
+    const [baseVersion, setBaseVersion] = useState(0);
     const fileRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         setId(initialData?.id ?? "");
         setName(initialData?.name ?? "");
         setDescription(initialData?.description ?? "");
-        setPriceCents(initialData?.price_cents ?? "");
+        priceBaseRef.current = typeof initialData?.price_cents === "number" ? initialData.price_cents : null;
+        setBaseVersion((version) => version + 1);
         setPhotoFile(null);
         setPhotoPreview(initialData?.photo ? `${apiRoot}/uploads/${initialData.photo}` : null);
         if (fileRef.current) fileRef.current.value = "";
     }, [initialData, apiRoot]);
+
+    useEffect(() => {
+        const baseValue = priceBaseRef.current;
+        if (baseValue == null) {
+            setPriceInput("");
+            return;
+        }
+        if (normalizedCurrency === baseCurrency) {
+            setPriceInput(baseValue);
+            return;
+        }
+        if (rateStatus === "ready" && rate !== null) {
+            setPriceInput(Math.round(baseValue * rate));
+        }
+    }, [normalizedCurrency, rateStatus, rate, baseVersion]);
     function pickFile() {
         const el = fileRef.current;
         if (!el) return;
@@ -57,11 +85,50 @@ export default function AdminProductForm({
         setPhotoFile(f);
         setPhotoPreview(f ? URL.createObjectURL(f) : null);
     }
+    const rateUnavailable = normalizedCurrency !== baseCurrency && rateStatus !== "ready";
+    const rateError = normalizedCurrency !== baseCurrency && rateStatus === "error";
 
+    const handlePriceChange = useCallback(
+        (value: string) => {
+            if (value === "") {
+                setPriceInput("");
+                priceBaseRef.current = null;
+                setBaseVersion((version) => version + 1);
+                return;
+            }
+
+            const numericValue = Number(value);
+            if (Number.isNaN(numericValue)) {
+                return;
+            }
+
+            setPriceInput(numericValue);
+
+            if (normalizedCurrency === baseCurrency) {
+                priceBaseRef.current = numericValue;
+                setBaseVersion((version) => version + 1);
+                return;
+            }
+
+            if (rateStatus === "ready" && rate !== null) {
+                priceBaseRef.current = Math.round(numericValue / rate);
+                setBaseVersion((version) => version + 1);
+            }
+        },
+        [normalizedCurrency, rateStatus, rate]
+    );
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault();
         if (!shopId) {
             setSnackbar({ open: true, severity: "error", message: "Please select a shop first." });
+            return;
+        }
+        if (rateUnavailable) {
+            setSnackbar({ open: true, severity: "error", message: "Please wait for the latest exchange rate before saving." });
+            return;
+        }
+        if (priceBaseRef.current == null) {
+            setSnackbar({ open: true, severity: "error", message: "Please enter a price." });
             return;
         }
         try {
@@ -71,7 +138,8 @@ export default function AdminProductForm({
             if (id !== "") fd.append("id", String(id));
             fd.append("name", name.trim());
             fd.append("description", description.trim());
-            fd.append("price_cents", String(priceCents || 0));
+            const priceCents = priceCentsPreview ?? 0;
+            fd.append("price_cents", String(priceCents));
             if (photoFile) fd.append("photo", photoFile);
 
             const endpoint = id === "" ? "/products.php?action=create" : "/products.php?action=update";
@@ -82,7 +150,9 @@ export default function AdminProductForm({
             if (id === "") {
                 setName("");
                 setDescription("");
-                setPriceCents("");
+                setPriceInput("");
+                priceBaseRef.current = null;
+                setBaseVersion((version) => version + 1);
                 setPhotoFile(null);
                 setPhotoPreview(null);
             }
@@ -116,11 +186,20 @@ export default function AdminProductForm({
                 />
 
                 <TextField
-                    label="Price (cents)"
+                    label={`Price (${normalizedCurrency})`}
                     type="number"
-                    value={priceCents}
-                    onChange={(e) => setPriceCents(e.target.value === "" ? "" : Number(e.target.value))}
-                    inputProps={{ min: 0, step: 1 }}
+                    value={priceInput}
+                    onChange={(e) => handlePriceChange(e.target.value)}
+                    inputProps={{ min: 0, step: 0.1 }}
+                    disabled={rateUnavailable || busy}
+                    helperText={
+                        rateError
+                            ? `Exchange rate unavailable for ${normalizedCurrency}.`
+                            : rateUnavailable
+                                ? `Loading exchange rate for ${normalizedCurrency}...`
+                                : undefined
+                    }
+                    error={rateError}
                     required
                 />
 
@@ -160,7 +239,7 @@ export default function AdminProductForm({
                     )}
                 </Stack>
 
-                <Button type="submit" variant="contained" disabled={busy}>
+                <Button type="submit" variant="contained" disabled={busy || rateUnavailable}>
                     {id === "" ? "Create" : "Update"} Product
                 </Button>
             </Stack>

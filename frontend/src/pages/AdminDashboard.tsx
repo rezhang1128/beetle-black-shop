@@ -252,6 +252,7 @@ export default function AdminDashboard() {
                                                     <TableCell>ID</TableCell>
                                                     <TableCell>Photo</TableCell>
                                                     <TableCell>Name</TableCell>
+                                                    <TableCell>Description</TableCell>
                                                     <TableCell>Price</TableCell>
                                                     <TableCell align="right">Actions</TableCell>
                                                 </TableRow>
@@ -271,6 +272,7 @@ export default function AdminDashboard() {
                                                             )}
                                                         </TableCell>
                                                         <TableCell>{product.name}</TableCell>
+                                                        <TableCell>{product.description}</TableCell>
                                                         <TableCell>
                                                             <ConvertedPrice amountCents={product.price_cents} />
                                                         </TableCell>
