@@ -39,6 +39,8 @@ if ($action === 'create') {
 
 if ($action === 'update') {
     require_admin();
+    // When updating we only touch the `photo` column if a new file was uploaded
+    // so existing images remain untouched.
     $id = (int) ($_POST['id'] ?? 0);
     $name = $_POST['name'] ?? '';
     $description = $_POST['description'] ?? null;

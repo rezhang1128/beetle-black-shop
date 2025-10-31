@@ -9,6 +9,6 @@
     "\\frontend\\src\\hooks",
     "\\frontend\\src\\pages"
   ],
-  "SelectedNode": "\\backend\\api\\promo.php",
+  "SelectedNode": "\\frontend\\src\\hooks\\usePromoManager.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -28,6 +28,8 @@ export function usePromoManager(items: CartItem[], options?: PromoManagerOptions
     const suppressEmptyValidation = options?.suppressEmptyValidation ?? false
 
     useEffect(() => {
+        // When the active promo changes elsewhere, synchronise the input box so
+        // the UI always reflects the currently applied code.
         setInput(promo?.code ?? "")
     }, [promo?.code])
 
@@ -38,6 +40,8 @@ export function usePromoManager(items: CartItem[], options?: PromoManagerOptions
             if (options?.silent) {
                 return
             }
+            // Provide contextual feedback so users understand why the promo was
+            // removed (e.g. cart emptied or product removed).
             if (options?.message) {
                 setFeedback({ status: options.status ?? "info", message: options.message })
             } else {

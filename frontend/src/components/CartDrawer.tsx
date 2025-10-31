@@ -45,6 +45,8 @@ export default function CartDrawer({ open, onClose }: Props) {
     }
     useEffect(() => {
         if (open) {
+            // The drawer fetches fresh data every time it opens so quantities and
+            // prices remain accurate if the cart is modified elsewhere.
             void loadCart()
         }
     }, [open])
@@ -57,6 +59,8 @@ export default function CartDrawer({ open, onClose }: Props) {
         } else {
             await api.put("/cart.php", { product_id, qty })
         }
+        // Refreshing the cart keeps the list in sync with the latest server
+        // quantities.  The call is awaited so the button states stay consistent.
         await loadCart()
     }
     const handleApplyPromo = () => {

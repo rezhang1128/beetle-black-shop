@@ -15,6 +15,7 @@ if ($action === 'create') {
     $name = $_POST['name'] ?? '';
     $address = $_POST['address'] ?? null;
     $photo = null;
+    //filenames are sanitized and prefixed with a timestamp to avoid collisions.
     if (!empty($_FILES['photo']['tmp_name'])) {
         $fname = time() . '_' . preg_replace('/[^a-zA-Z0-9_.-]/', '', $_FILES['photo']['name']);
         move_uploaded_file($_FILES['photo']['tmp_name'], __DIR__ . '/../uploads/' . $fname);

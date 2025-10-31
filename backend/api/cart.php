@@ -13,6 +13,8 @@ FROM cart_items c JOIN products p ON p.id=c.product_id WHERE c.user_id=?');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // POST increments the quantity of an item or inserts a new row if the item
+    // does not yet exist in the user's cart.
     $body = json_decode(file_get_contents('php://input'), true) ?? [];
     $pid = (int) ($body['product_id'] ?? 0);
     $qty = max(1, (int) ($body['qty'] ?? 1));

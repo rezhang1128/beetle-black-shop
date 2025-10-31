@@ -173,7 +173,8 @@ if ($product_id) {
     $product_ids[] = $product_id;
 }
 $product_ids = array_values(array_unique(array_filter($product_ids, fn($id) => $id > 0)));
-
+// Customer validation path: verify the promo exists, is active, and applies to
+// the provided product ids so the front end can present a discount preview.
 $st = $pdo->prepare('SELECT * FROM promo_codes WHERE code=? LIMIT 1');
 $st->execute([$code]);
 $promo = $st->fetch(PDO::FETCH_ASSOC);
