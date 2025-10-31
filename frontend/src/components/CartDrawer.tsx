@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import {
+    Alert,
     Avatar,
     Box,
     Button,
@@ -11,6 +12,7 @@ import {
     ListItemAvatar,
     ListItemText,
     Stack,
+    TextField,
     Typography,
 } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
@@ -20,6 +22,7 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import ConvertedPrice from './ConvertedPrice'
 import { api } from "../api"
 import type { CartItem } from "../types"
+import { usePromoManager } from "../hooks/usePromoManager"
 
 interface Props {
     open: boolean
@@ -29,12 +32,12 @@ export default function CartDrawer({ open, onClose }: Props) {
     const [items, setItems] = useState<CartItem[]>([])
     const [loading, setLoading] = useState(false)
     const apiRoot = (import.meta.env.VITE_API as string).replace("/api", "")
+    const { promo, input, setInput, applyPromo, removePromo, applying, feedback, discount } = usePromoManager(items)
 
     const loadCart = async () => {
         setLoading(true)
         try {
             const { data } = await api.get<CartItem[]>("/cart.php")
-            console.log(data)
             setItems(data)
         } finally {
             setLoading(false)
@@ -45,8 +48,9 @@ export default function CartDrawer({ open, onClose }: Props) {
             void loadCart()
         }
     }, [open])
-    const total = useMemo(() => items.reduce((sum, item) => sum + item.price_cents * item.qty, 0), [items])
-
+    const subtotal = useMemo(() => items.reduce((sum, item) => sum + item.price_cents * item.qty, 0), [items])
+    const total = Math.max(subtotal - discount, 0)
+    const hasDiscount = discount > 0
     async function updateQty(product_id: number, qty: number) {
         if (qty <= 0) {
             await api.put("/cart.php", { product_id, qty: 0 })
@@ -54,6 +58,9 @@ export default function CartDrawer({ open, onClose }: Props) {
             await api.put("/cart.php", { product_id, qty })
         }
         await loadCart()
+    }
+    const handleApplyPromo = () => {
+        void applyPromo()
     }
     return (
         <Drawer anchor="right" open={open} onClose={onClose} PaperProps={{ sx: { width: { xs: 320, sm: 380 } } }}>
@@ -146,7 +153,7 @@ export default function CartDrawer({ open, onClose }: Props) {
                                         >
                                             <DeleteIcon fontSize="small" />
                                         </IconButton>
-                                        <ConvertedPrice amountCents={item.price_cents} quantity={item.qty} />
+                                        
                                     </Stack>
                                 </ListItem>
                             ))}
@@ -164,6 +171,72 @@ export default function CartDrawer({ open, onClose }: Props) {
                         backgroundColor: "background.paper",
                     }}
                 >
+                    {items.length > 0 && (
+                        <Stack spacing={1.5} mb={2}>
+                            <Typography variant="subtitle2" fontWeight={600}>
+                                Promo code
+                            </Typography>
+                            <Stack direction="row" spacing={1}>
+                                <TextField
+                                    fullWidth
+                                    size="small"
+                                    label="Enter code"
+                                    value={input}
+                                    onChange={(event) => setInput(event.target.value)}
+                                    onKeyDown={(event) => {
+                                        if (event.key === "Enter") {
+                                            event.preventDefault()
+                                            handleApplyPromo()
+                                        }
+                                    }}
+                                    disabled={applying}
+                                />
+                                <Button
+                                    variant="outlined"
+                                    onClick={handleApplyPromo}
+                                    disabled={applying || !input.trim() || items.length === 0}
+                                >
+                                    {applying ? "Applying..." : promo ? "Update" : "Apply"}
+                                </Button>
+                                {promo && (
+                                    <Button variant="text" color="inherit" disabled={applying} onClick={() => removePromo()}>
+                                        Remove
+                                    </Button>
+                                )}
+                            </Stack>
+                            {feedback && (
+                                <Alert
+                                    severity={
+                                        feedback.status === "error"
+                                            ? "error"
+                                            : feedback.status === "success"
+                                                ? "success"
+                                                : "info"
+                                    }
+                                >
+                                    {feedback.message}
+                                </Alert>
+                            )}
+                        </Stack>
+                    )}
+                    <Stack spacing={1} mb={2}>
+                        <Stack direction="row" justifyContent="space-between" alignItems="center">
+                            <Typography variant="subtitle2" color="text.secondary">
+                                Subtotal
+                            </Typography>
+                            <ConvertedPrice amountCents={subtotal} />
+                        </Stack>
+                        {hasDiscount && (
+                            <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                <Typography variant="subtitle2" color="success.main">
+                                    Discount{promo ? ` (${promo.code})` : ""}
+                                </Typography>
+                                <Typography color="success.main">
+                                    <ConvertedPrice amountCents={-discount} />
+                                </Typography>
+                            </Stack>
+                        )}
+                    </Stack>
                     <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
                         <Typography variant="subtitle1" fontWeight={600}>
                             Total

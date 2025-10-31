@@ -1,12 +1,14 @@
 {
   "ExpandedNodes": [
     "",
+    "\\backend",
+    "\\backend\\api",
     "\\frontend",
     "\\frontend\\src",
     "\\frontend\\src\\components",
     "\\frontend\\src\\hooks",
     "\\frontend\\src\\pages"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\backend\\api\\promo.php",
   "PreviewInSolutionExplorer": false
 }

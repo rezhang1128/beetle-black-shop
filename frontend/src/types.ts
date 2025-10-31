@@ -36,3 +36,10 @@ export interface CartItem {
     price_cents: number
     photo: string | null
 }
+
+export interface PromoCode {
+    code: string
+    percent_off: number | null
+    amount_off_cents: number | null
+    product_id: number | null
+}

@@ -22,6 +22,7 @@ import MenuIcon from "@mui/icons-material/Menu"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import CurrencySelector from './components/CurrencySelector'
 import { CurrencyProvider } from './components/CurrencyContext'
+import { PromoProvider } from './components/PromoContext'
 
 import App from "./App"
 import Login from "./pages/Login"
@@ -73,7 +74,7 @@ function Shell() {
     }
 
     return (
-        <CurrencyProvider>
+        
         <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
             <AppBar position="sticky" color="primary" enableColorOnDark>
                 <Toolbar>
@@ -155,21 +156,20 @@ function Shell() {
             <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
             <CartButton onClick={() => setCartOpen(true)} />
             </Box>
-        </CurrencyProvider>
+       
     )
 }
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <BrowserRouter>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Shell />
-            </ThemeProvider>
-        </BrowserRouter>
-        <CurrencyProvider>
-            <BrowserRouter>
-                <Shell />
-            </BrowserRouter>
-        </CurrencyProvider>
+        <PromoProvider>
+            <CurrencyProvider>
+                <BrowserRouter>
+                    <ThemeProvider theme={theme}>
+                        <CssBaseline />
+                        <Shell />
+                    </ThemeProvider>
+                </BrowserRouter>
+            </CurrencyProvider>
+        </PromoProvider>
     </React.StrictMode>,
 )

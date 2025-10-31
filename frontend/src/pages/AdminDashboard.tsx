@@ -26,15 +26,16 @@ import {
 import type { SelectChangeEvent } from "@mui/material/Select"
 import ConvertedPrice from '../components/ConvertedPrice'
 import { api } from "../api"
-import type { Product, Shop, User } from "../types"
+import type { Product, Shop, User, PromoCode } from "../types"
 import AdminShopForm from "./AdminShopForm"
 import AdminProductForm from "./AdminProductForm"
 
 export default function AdminDashboard() {
     const [me, setMe] = useState<User | null>(null)
-    const [tab, setTab] = useState<"shops" | "products">("shops")
+    const [tab, setTab] = useState<"shops" | "products" | "promo codes">("shops")
     const [shops, setShops] = useState<Shop[]>([])
     const [selectedShopId, setSelectedShopId] = useState<number | "">("")
+    const [promos, setPromos] = useState<PromoCode[]>([])
     const [products, setProducts] = useState<Product[]>([])
     const [loadingMe, setLoadingMe] = useState(true)
     const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: "success" | "error" } | null>(
@@ -42,6 +43,7 @@ export default function AdminDashboard() {
     )
     const [editingShop, setEditingShop] = useState<Shop | null>(null)
     const [editingProduct, setEditingProduct] = useState<Product | null>(null)
+    const [editingPromo, setEditingPromo] = useState<PromoCode | null>(null)
 
     useEffect(() => {
         setLoadingMe(true)
@@ -117,6 +119,7 @@ export default function AdminDashboard() {
                 <Tabs value={tab} onChange={(_, value) => setTab(value)}>
                     <Tab value="shops" label="Shops" />
                     <Tab value="products" label="Products" />
+                    <Tab value="promo codes" label="Promo Codes" />
                 </Tabs>
 
                 {tab === "shops" && (
@@ -212,7 +215,6 @@ export default function AdminDashboard() {
                         </Grid>
                     </Grid>
                 )}
-
                 {tab === "products" && (
                     <Stack spacing={3}>
                         <FormControl fullWidth>
@@ -332,6 +334,9 @@ export default function AdminDashboard() {
                             </Grid>
                         )}
                     </Stack>
+                )}
+                {tab === "promo codes" && (
+                    <Stack spacing={3}></Stack>
                 )}
             </Stack>
 
