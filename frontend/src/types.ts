@@ -38,8 +38,11 @@ export interface CartItem {
 }
 
 export interface PromoCode {
+    id?: number
     code: string
     percent_off: number | null
     amount_off_cents: number | null
     product_id: number | null
+    starts_at?: string | null
+    ends_at?: string | null
 }

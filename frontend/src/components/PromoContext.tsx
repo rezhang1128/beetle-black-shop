@@ -22,6 +22,8 @@ function loadInitialPromo(): PromoCode | null {
             percent_off: parsed.percent_off ?? null,
             amount_off_cents: parsed.amount_off_cents ?? null,
             product_id: parsed.product_id ?? null,
+            starts_at: parsed.starts_at ?? null,
+            ends_at: parsed.ends_at ?? null,
         }
     } catch (error) {
         console.warn("Failed to load stored promo code", error)

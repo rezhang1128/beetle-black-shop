@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { loadStripe } from "@stripe/stripe-js"
 import {
     Elements,
@@ -22,8 +22,9 @@ import {
     Typography,
     TextField,
 } from "@mui/material"
-import currency from "currency.js"
 import { api } from "../api"
+import { useCurrency } from "../components/CurrencyContext"
+import { baseCurrency, useExchangeRate } from "../hooks/useExchangeRate"
 import type { CartItem } from "../types"
 import { usePromoManager } from "../hooks/usePromoManager"
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK as string)
@@ -144,7 +145,37 @@ export default function Checkout() {
     const total = Math.max(subtotal - discount, 0)
     const hasDiscount = discount > 0
 
-    const formatCurrency = (value: number) => currency(value, { fromCents: true }).format()
+    const currencyContext = useCurrency()
+    const selectedCurrency = (currencyContext?.currency ?? baseCurrency).toUpperCase()
+    const baseCurrencyCode = baseCurrency.toUpperCase()
+    const { status: rateStatus, rate } = useExchangeRate(selectedCurrency)
+
+    const formatCurrency = useCallback(
+        (amountCents: number) => {
+            const sign = amountCents < 0 ? -1 : 1
+            const absoluteCents = Math.abs(amountCents)
+
+            let displayCurrency = selectedCurrency
+            let displayAmount = absoluteCents / 100
+
+            if (selectedCurrency !== baseCurrencyCode) {
+                if (rateStatus === "ready" && typeof rate === "number" && rate > 0) {
+                    displayAmount = (absoluteCents / 100) * rate
+                } else {
+                    displayCurrency = baseCurrencyCode
+                    displayAmount = absoluteCents / 100
+                }
+            }
+
+            const formatted = new Intl.NumberFormat(undefined, {
+                style: "currency",
+                currency: displayCurrency,
+            }).format(displayAmount)
+
+            return sign < 0 ? `-${formatted}` : formatted
+        },
+        [selectedCurrency, baseCurrencyCode, rateStatus, rate],
+    )
     const handleApplyPromo = () => {
         void applyPromo()
     }

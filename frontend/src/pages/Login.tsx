@@ -95,9 +95,6 @@ export default function Login() {
                     ) : (
                         <Alert severity="info">You are not logged in.</Alert>
                     )}
-                    <Box component="pre" sx={{ bgcolor: "grey.100", p: 2, borderRadius: 1, overflow: "auto" }}>
-                        {JSON.stringify(me, null, 2)}
-                    </Box>
                 </Stack>
             </Paper>
             <Snackbar

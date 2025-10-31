@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import {
     Alert,
     Avatar,
@@ -29,6 +29,8 @@ import { api } from "../api"
 import type { Product, Shop, User, PromoCode } from "../types"
 import AdminShopForm from "./AdminShopForm"
 import AdminProductForm from "./AdminProductForm"
+import { baseCurrency } from "../hooks/useExchangeRate"
+import AdminPromoForm from "./AdminPromoForm"
 
 export default function AdminDashboard() {
     const [me, setMe] = useState<User | null>(null)
@@ -37,6 +39,7 @@ export default function AdminDashboard() {
     const [selectedShopId, setSelectedShopId] = useState<number | "">("")
     const [promos, setPromos] = useState<PromoCode[]>([])
     const [products, setProducts] = useState<Product[]>([])
+    const [allProducts, setAllProducts] = useState<Product[]>([])
     const [loadingMe, setLoadingMe] = useState(true)
     const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: "success" | "error" } | null>(
         null,
@@ -80,6 +83,49 @@ export default function AdminDashboard() {
             void loadProducts(selectedShopId)
         }
     }, [selectedShopId])
+
+    const loadPromos = useCallback(async () => {
+        const { data } = await api.get<PromoCode[]>("/promo.php?action=list")
+        setPromos(data)
+    }, [])
+
+    const loadAllProducts = useCallback(async () => {
+        const { data } = await api.get<Product[]>("/products.php?action=listAll")
+        setAllProducts(data)
+    }, [])
+
+    const productLookup = useMemo(() => {
+        const map = new Map<number, { name: string; shop_name: string | null }>()
+        allProducts.forEach((product) => {
+            map.set(product.id, { name: product.name, shop_name: product.shop_name ?? null })
+        })
+        return map
+    }, [allProducts])
+
+    useEffect(() => {
+        if (tab !== "promo codes") {
+            return
+        }
+
+        let active = true
+
+        const fetchData = async () => {
+            try {
+                await Promise.all([loadPromos(), loadAllProducts()])
+            } catch (error) {
+                console.error("Failed to load promo data", error)
+                if (!active) return
+                setSnackbar({ open: true, message: "Failed to load promo codes", severity: "error" })
+            }
+        }
+
+        void fetchData()
+
+        return () => {
+            active = false
+        }
+    }, [tab, loadPromos, loadAllProducts])
+
     if (loadingMe) {
         return (
             <Container maxWidth="md" sx={{ py: 6, textAlign: "center" }}>
@@ -126,9 +172,27 @@ export default function AdminDashboard() {
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={7}>
                             <Paper variant="outlined" sx={{ p: 3 }}>
-                                <Typography variant="h6" gutterBottom>
-                                    All Shops
-                                </Typography>
+                                <Stack
+                                    direction={{ xs: "column", sm: "row" }}
+                                    spacing={2}
+                                    justifyContent="space-between"
+                                    alignItems={{ xs: "flex-start", sm: "center" }}
+                                    sx={{ mb: 2 }}
+                                >
+                                    <Box>
+                                        <Typography variant="h6">Shops</Typography>
+                                    </Box>
+                                    <Button
+                                        variant="outlined"
+                                        onClick={() => setEditingShop(null)}
+                                        disabled={editingShop === null}
+                                    >
+                                        New Shop
+                                    </Button>
+                                </Stack>
+                                <Button size="small" onClick={() => setEditingShop(null)} disabled={!editingShop}>
+                                    New Shop
+                                </Button>
                                 <Table size="small">
                                     <TableHead>
                                         <TableRow>
@@ -194,14 +258,8 @@ export default function AdminDashboard() {
                         </Grid>
                         <Grid item xs={12} md={5}>
                             <Paper variant="outlined" sx={{ p: 3 }}>
-                                <Typography variant="h6" gutterBottom>
-                                    Create or Update Shop
-                                </Typography>
                                 <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
                                     <Typography variant="h6">{editingShop ? "Edit Shop" : "Create Shop"}</Typography>
-                                    <Button size="small" onClick={() => setEditingShop(null)} disabled={!editingShop}>
-                                        New Shop
-                                    </Button>
                                 </Stack>
                                 <AdminShopForm
                                     key={editingShop?.id ?? undefined}
@@ -245,9 +303,24 @@ export default function AdminDashboard() {
                             <Grid container spacing={3}>
                                 <Grid item xs={12} md={7}>
                                     <Paper variant="outlined" sx={{ p: 3 }}>
-                                        <Typography variant="h6" gutterBottom>
-                                            Products
-                                        </Typography>
+                                        <Stack
+                                            direction={{ xs: "column", sm: "row" }}
+                                            spacing={2}
+                                            justifyContent="space-between"
+                                            alignItems={{ xs: "flex-start", sm: "center" }}
+                                            sx={{ mb: 2 }}
+                                        >
+                                            <Box>
+                                                <Typography variant="h6">Products</Typography>
+                                            </Box>
+                                            <Button
+                                                variant="outlined"
+                                                onClick={() => setEditingProduct(null)}
+                                                disabled={editingProduct === null}
+                                            >
+                                                New product
+                                            </Button>
+                                        </Stack>
                                         <Table size="small">
                                             <TableHead>
                                                 <TableRow>
@@ -311,14 +384,9 @@ export default function AdminDashboard() {
                                 </Grid>
                                 <Grid item xs={12} md={5}>
                                     <Paper variant="outlined" sx={{ p: 3 }}>
-                                        <Typography variant="h6" gutterBottom>
-                                            Create or Update Product
-                                        </Typography>
                                         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
                                             <Typography variant="h6">{editingProduct ? "Edit Product" : "Create Product"}</Typography>
-                                            <Button size="small" onClick={() => setEditingProduct(null)} disabled={!editingProduct}>
-                                                New Product
-                                            </Button>
+
                                         </Stack>
                                         <AdminProductForm
                                             key={editingProduct?.id || "new"}
@@ -336,7 +404,122 @@ export default function AdminDashboard() {
                     </Stack>
                 )}
                 {tab === "promo codes" && (
-                    <Stack spacing={3}></Stack>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} md={7}>
+                            <Paper variant="outlined" sx={{ p: 3 }}>
+                                <Stack
+                                    direction={{ xs: "column", sm: "row" }}
+                                    spacing={2}
+                                    justifyContent="space-between"
+                                    alignItems={{ xs: "flex-start", sm: "center" }}
+                                    sx={{ mb: 2 }}
+                                >
+                                    <Box>
+                                        <Typography variant="h6">Promo Codes</Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            Manage discounts, scheduling, and product eligibility.
+                                        </Typography>
+                                    </Box>
+                                    <Button
+                                        variant="outlined"
+                                        onClick={() => setEditingPromo(null)}
+                                        disabled={editingPromo === null}
+                                    >
+                                        New promo
+                                    </Button>
+                                </Stack>
+                                <Table size="small">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Code</TableCell>
+                                            <TableCell>Percent off</TableCell>
+                                            <TableCell>Amount off</TableCell>
+                                            <TableCell>Applies to</TableCell>
+                                            <TableCell>Starts</TableCell>
+                                            <TableCell>Ends</TableCell>
+                                            <TableCell align="right">Actions</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {promos.map((promo) => (
+                                            <PromoRow
+                                                key={promo.id ?? promo.code}
+                                                promo={promo}
+                                                productLookup={productLookup}
+                                                onEdit={() => setEditingPromo(promo)}
+                                                onDeleted={() => {
+                                                    void loadPromos().catch((error) => {
+                                                        console.error("Failed to refresh promos", error)
+                                                        setSnackbar({
+                                                            open: true,
+                                                            message: "Promo deleted but list failed to refresh",
+                                                            severity: "error",
+                                                        })
+                                                    })
+                                                    setSnackbar({
+                                                        open: true,
+                                                        message: "Promo deleted",
+                                                        severity: "success",
+                                                    })
+                                                }}
+                                                onDeleteError={() =>
+                                                    setSnackbar({
+                                                        open: true,
+                                                        message: "Failed to delete promo",
+                                                        severity: "error",
+                                                    })
+                                                }
+                                            />
+                                        ))}
+                                        {promos.length === 0 && (
+                                            <TableRow>
+                                                <TableCell colSpan={7}>
+                                                    <Typography variant="body2" color="text.secondary" align="center">
+                                                        No promo codes yet.
+                                                    </Typography>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                    </TableBody>
+                                </Table>
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={12} md={5}>
+                            <Paper variant="outlined" sx={{ p: 3 }}>
+                                <Stack
+                                    direction="row"
+                                    justifyContent="space-between"
+                                    alignItems="center"
+                                    sx={{ mb: 2 }}
+                                >
+                                    <Typography variant="h6">
+                                        {editingPromo ? `Edit ${editingPromo.code}` : "Create promo"}
+                                    </Typography>
+                                </Stack>
+                                <AdminPromoForm
+                                    key={editingPromo?.id ?? "new"}
+                                    initialData={editingPromo}
+                                    products={allProducts}
+                                    onSaved={(message) => {
+                                        setEditingPromo(null)
+                                        void loadPromos().catch((error) => {
+                                            console.error("Failed to refresh promos", error)
+                                            setSnackbar({
+                                                open: true,
+                                                message: "Promo saved but list failed to refresh",
+                                                severity: "error",
+                                            })
+                                        })
+                                        setSnackbar({ open: true, message, severity: "success" })
+                                    }}
+                                    onError={(message) =>
+                                        setSnackbar({ open: true, message, severity: "error" })
+                                    }
+                                    onReset={() => setEditingPromo(null)}
+                                />
+                            </Paper>
+                        </Grid>
+                    </Grid>
                 )}
             </Stack>
 
@@ -384,6 +567,96 @@ function DeleteProductButton({ id, onDone, onError }: { id: number; onDone: () =
             onError()
         }
     }
+    return (
+        <Button variant="outlined" color="error" size="small" onClick={del}>
+            Delete
+        </Button>
+    )
+}
+
+type PromoRowProps = {
+    promo: PromoCode
+    productLookup: Map<number, { name: string; shop_name: string | null }>
+    onEdit: () => void
+    onDeleted: () => void
+    onDeleteError: () => void
+}
+
+function formatBaseCurrency(amountCents: number | null | undefined): string {
+    if (amountCents == null) {
+        return "¡ª"
+    }
+    return new Intl.NumberFormat(undefined, {
+        style: "currency",
+        currency: baseCurrency,
+    }).format(amountCents / 100)
+}
+
+function formatDateTime(value?: string | null): string {
+    if (!value) {
+        return "¡ª"
+    }
+    const normalized = value.replace(" ", "T")
+    const parsed = new Date(normalized)
+    if (Number.isNaN(parsed.getTime())) {
+        return value
+    }
+    return parsed.toLocaleString()
+}
+
+function PromoRow({ promo, productLookup, onEdit, onDeleted, onDeleteError }: PromoRowProps) {
+    const appliesTo = useMemo(() => {
+        if (!promo.product_id) {
+            return "All products"
+        }
+        const details = productLookup.get(promo.product_id)
+        if (!details) {
+            return `Product #${promo.product_id}`
+        }
+        return details.shop_name ? `${details.name} (${details.shop_name})` : details.name
+    }, [promo.product_id, productLookup])
+
+    const promoId = typeof promo.id === "number" && promo.id > 0 ? promo.id : null
+
+    return (
+        <TableRow hover>
+            <TableCell>{promo.code}</TableCell>
+            <TableCell>{promo.percent_off ? `${promo.percent_off}%` : "0"}</TableCell>
+            <TableCell>{promo.amount_off_cents ? formatBaseCurrency(promo.amount_off_cents) : formatBaseCurrency(0)}</TableCell>
+            <TableCell>{appliesTo}</TableCell>
+            <TableCell>{promo.starts_at ? formatDateTime(promo.starts_at):"Always"}</TableCell>
+            <TableCell>{promo.ends_at ? formatDateTime(promo.ends_at):"Never"}</TableCell>
+            <TableCell align="right">
+                <Stack direction="column" spacing={1} justifyContent="flex-end">
+                    <Button variant="outlined" size="small" onClick={onEdit}>
+                        Edit
+                    </Button>
+                    <DeletePromoButton id={promoId} onDone={onDeleted} onError={onDeleteError} />
+                </Stack>
+            </TableCell>
+        </TableRow>
+    )
+}
+
+function DeletePromoButton({ id, onDone, onError }: { id: number | null; onDone: () => void; onError: () => void }) {
+    if (id == null) {
+        return (
+            <Button variant="outlined" color="error" size="small" disabled>
+                Delete
+            </Button>
+        )
+    }
+
+    const del = async () => {
+        try {
+            await api.post("/promo.php?action=delete", { id })
+            onDone()
+        } catch (error) {
+            console.error(error)
+            onError()
+        }
+    }
+
     return (
         <Button variant="outlined" color="error" size="small" onClick={del}>
             Delete

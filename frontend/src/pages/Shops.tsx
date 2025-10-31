@@ -85,9 +85,9 @@ export default function Shops() {
                 )}
                 <Grid container spacing={3}>
                     {products.map((product) => (
-                        <Grid key={product.id} xs={12} sm={6} md={4}>
-                            <Card elevation={1} sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                                <Box sx={{ p: 2 }}>
+                        <Grid key={product.id} xs={12} sm={12} md={4} lg={4}>
+                            <Card elevation={2} sx={{ height: "100%", display: "flex", flexDirection: "column", p:4, boarderRadius:3, }}>
+                                <Box sx={{ p: 1 }}>
                                     <Carousel
                                         images={[
                                             product.photo

@@ -6,6 +6,8 @@ export type PromoValidationResponse = {
     percent_off?: number | null
     amount_off_cents?: number | null
     product_id?: number | null
+    starts_at?: string | null
+    ends_at?: string | null
     reason?: string
 }
 
@@ -96,5 +98,7 @@ export async function validatePromoCode(code: string, items: CartItem[]): Promis
         percent_off: data.percent_off ?? null,
         amount_off_cents: data.amount_off_cents ?? null,
         product_id: data.product_id ?? null,
+        starts_at: data.starts_at ?? null,
+        ends_at: data.ends_at ?? null,
     }
 }

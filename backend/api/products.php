@@ -10,6 +10,12 @@ if ($action === 'byShop') {
     exit;
 }
 
+if ($action === 'listAll') {
+    require_admin();
+    $st = $pdo->query('SELECT p.*, s.name AS shop_name FROM products p LEFT JOIN shops s ON s.id = p.shop_id ORDER BY p.id DESC');
+    echo json_encode($st->fetchAll(PDO::FETCH_ASSOC));
+    exit;
+}
 
 if ($action === 'create') {
     require_admin();
