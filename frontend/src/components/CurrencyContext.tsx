@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { baseCurrency } from '../hooks/useExchangeRate'
 
 export type SupportedCurrency = {
     code: string
@@ -22,10 +23,10 @@ const supportedCurrencies: SupportedCurrency[] = [
 const CurrencyContext = createContext<CurrencyContextValue | undefined>(undefined)
 
 function loadInitialCurrency(): string {
-    if (typeof window === 'undefined') return 'AUD'
+    if (typeof window === 'undefined') return baseCurrency
 
     const stored = window.localStorage.getItem('selectedCurrency')
-    return stored && supportedCurrencies.some(opt => opt.code === stored) ? stored : 'AUD'
+    return stored && supportedCurrencies.some(opt => opt.code === stored) ? stored : baseCurrency
 }
 
 export function CurrencyProvider({ children }: { children: ReactNode }) {

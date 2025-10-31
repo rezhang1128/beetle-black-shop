@@ -58,18 +58,46 @@ export default function AdminProductForm({
     const isBase = normalizedCurrency === baseCurrency;
     const hasRate = rateStatus === "ready" && typeof rate === "number" && rate > 0;
 
-    function baseCentsToDisplayUnits(baseCents: number | null): string {
-        if (baseCents == null) return "";
-        const baseUnits = baseCents / 100; // cents -> units in base
-        const displayUnits = isBase ? baseUnits : (hasRate ? baseUnits * rate! : NaN);
-        return Number.isFinite(displayUnits) ? displayUnits.toFixed(2) : "";
-    }
-    function parsePriceInput(value: string): number | null {
+    const baseCentsToDisplayUnits = useCallback(
+        (baseCents: number | null): string => {
+            if (baseCents == null) return "";
+            const baseUnits = baseCents / 100; // cents -> units in base
+            const displayUnits = isBase ? baseUnits : hasRate ? baseUnits * rate! : NaN;
+            return Number.isFinite(displayUnits) ? displayUnits.toFixed(2) : "";
+        },
+        [isBase, hasRate, rate]
+    );
+
+    const displayUnitsToBaseCents = useCallback(
+        (displayUnits: number): number | null => {
+            const baseUnits = isBase ? displayUnits : hasRate ? displayUnits / rate! : NaN;
+            if (!Number.isFinite(baseUnits) || baseUnits < 0) return null;
+            return Math.round(baseUnits * 100);
+        },
+        [isBase, hasRate, rate]
+    );
+
+    const parsePriceInput = useCallback((value: string): number | null => {
         if (!value.trim()) return null; // empty = no price
         const parsed = Number.parseFloat(value);
         if (Number.isNaN(parsed) || parsed < 0) return null;
         return parsed;
-    }
+    }, []);
+
+    const updatePriceFromInput = useCallback(
+        (value: string) => {
+            setPriceInput(value);
+            const parsed = parsePriceInput(value);
+            if (parsed == null) {
+                priceBaseRef.current = null;
+                return;
+            }
+
+            const baseCents = displayUnitsToBaseCents(parsed);
+            priceBaseRef.current = baseCents ?? null;
+        },
+        [displayUnitsToBaseCents, parsePriceInput]
+    );
 
     // Reset when initialData changes
     useEffect(() => {
@@ -89,7 +117,7 @@ export default function AdminProductForm({
     // Recompute display input whenever the currency/rate/base changes
     useEffect(() => {
         setPriceInput(baseCentsToDisplayUnits(priceBaseRef.current));
-    }, [normalizedCurrency, rateStatus, rate, baseVersion]);
+    }, [baseCentsToDisplayUnits, normalizedCurrency, rateStatus, rate, baseVersion]);
 
     // Dropzone / file picking
     const onDrop = (acceptedFiles: File[]) => {
@@ -132,7 +160,17 @@ export default function AdminProductForm({
         }
 
         // Convert to cents (float ¡ú int)
-        const priceCents = Math.round(parsedPrice * 100);
+        const priceCents = displayUnitsToBaseCents(parsedPrice);
+        if (priceCents == null) {
+            setSnackbar({
+                open: true,
+                severity: "error",
+                message: "Unable to convert price to base currency."
+            });
+            return;
+        }
+
+        priceBaseRef.current = priceCents;
 
         const fd = new FormData();
         fd.append("shop_id", String(shopId));
@@ -143,15 +181,28 @@ export default function AdminProductForm({
         if (photoFile) fd.append("photo", photoFile);
 
         const endpoint = id === "" ? "/products.php?action=create" : "/products.php?action=update";
-        await api.post(endpoint, fd, { headers: { "Content-Type": "multipart/form-data" } });
 
-        setSnackbar({
-            open: true,
-            severity: "success",
-            message: id === "" ? "Product created" : "Product updated"
-        });
+        setBusy(true);
+        try {
+            await api.post(endpoint, fd, { headers: { "Content-Type": "multipart/form-data" } });
 
+            setSnackbar({
+                open: true,
+                severity: "success",
+                message: id === "" ? "Product created" : "Product updated"
+            });
         onSaved();
+        } catch (error) {
+            console.error("Failed to save product", error);
+            setSnackbar({
+                open: true,
+                severity: "error",
+                message: "Failed to save product. Please try again."
+            });
+        } finally {
+            setBusy(false);
+        }
+     
     }
 
     return (
@@ -178,7 +229,7 @@ export default function AdminProductForm({
                     label={`Price (${normalizedCurrency})`}
                     type="text"
                     value={priceInput}
-                    onChange={(e) => setPriceInput(e.target.value)}
+                    onChange={(e) => updatePriceFromInput(e.target.value)}
                     inputProps={{ inputMode: "decimal" }}
                     disabled={rateUnavailable || busy}
                     helperText={
